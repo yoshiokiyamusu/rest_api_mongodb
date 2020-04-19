@@ -1,11 +1,13 @@
-//https://www.youtube.com/watch?v=p8CoR-wymQg&t=2170s
+const path = require('path'); /*new*/ 
 const express = require('express');
+const bodyParser = require('body-parser');/*new*/ 
+const mongoConnect = require('./util/database').mongoConnect;/*new*/ 
 const app = express();
 
 // Settings
-app.set('port', process.env.PORT || 3001);
+app.set('port', process.env.PORT || 3005);
 
-
+const serverRoutes = require('./routes/server');/*new*/
 
 // Middlewares
 app.use(express.json());
@@ -21,10 +23,13 @@ app.use(function(req, res, next) {
 
 
 // Routes
-app.use(require('./routes/employees'));
-
+app.use(serverRoutes);/*new*/
 
 // Starting the server
-app.listen(app.get('port'), () => {
-  console.log(`Server on port ${app.get('port')}`);
+mongoConnect(() => {
+  app.listen(app.get('port'), () => {
+    console.log(`Server on port ${app.get('port')}`);
+  });
 });
+
+  

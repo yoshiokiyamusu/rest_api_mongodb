@@ -1,0 +1,5 @@
+﻿// git init
+git add .
+git commit -m "first commit"
+git remote add github_repo https://github.com/yoshiokiyamusu/rest_api_mongodb.git
+git push -u github_repo master
